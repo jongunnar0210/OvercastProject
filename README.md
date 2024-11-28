@@ -186,6 +186,12 @@ backend:
     - "<custom_port>:5000"
 ```
 
+You will also have to reflect that change in the `constants.js` file:
+
+```javascript
+export const BACKEND_HOST = 'http://127.0.0.1:custom_port';
+```
+
 Rebuild and restart the containers.
 
 ---

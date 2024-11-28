@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import './App.css';
+import { BACKEND_HOST } from './constants';
 
 const App = () => {
     const [subscriptions, setSubscriptions] = useState([]);
@@ -20,7 +21,7 @@ const App = () => {
         e.preventDefault();
     
         try {
-            const response = await fetch('http://127.0.0.1:5000/subscriptions', {
+            const response = await fetch(BACKEND_HOST + '/subscriptions', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -50,46 +51,45 @@ const App = () => {
 
     return (
         <div className="App">
-            <h1>Subscription Tracker</h1>
+            <h1>Subscription Tracker test</h1>
             <form onSubmit={handleSubmit} className="container mt-4">
-    <div className="mb-3">
-        <label htmlFor="service_name" className="form-label">Service Name</label>
-        <input
-            id="service_name"
-            name="service_name"
-            className="form-control"
-            placeholder="Service Name"
-            value={formData.service_name}
-            onChange={handleInputChange}
-        />
-    </div>
-    <div className="mb-3">
-        <label htmlFor="cost" className="form-label">Cost</label>
-        <input
-            id="cost"
-            name="cost"
-            className="form-control"
-            placeholder="Cost"
-            type="number"
-            value={formData.cost}
-            onChange={handleInputChange}
-        />
-    </div>
-    <div className="mb-3">
-        <label htmlFor="renewal_date" className="form-label">Renewal Date</label>
-        <input
-            id="renewal_date"
-            name="renewal_date"
-            className="form-control"
-            placeholder="Renewal Date"
-            type="date"
-            value={formData.renewal_date}
-            onChange={handleInputChange}
-        />
-    </div>
-    <button type="submit" className="btn btn-primary">Add Subscription</button>
-</form>
-
+                <div className="mb-3">
+                    <label htmlFor="service_name" className="form-label">Service Name</label>
+                    <input
+                        id="service_name"
+                        name="service_name"
+                        className="form-control"
+                        placeholder="Service Name"
+                        value={formData.service_name}
+                        onChange={handleInputChange}
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="cost" className="form-label">Cost</label>
+                    <input
+                        id="cost"
+                        name="cost"
+                        className="form-control"
+                        placeholder="Cost"
+                        type="number"
+                        value={formData.cost}
+                        onChange={handleInputChange}
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="renewal_date" className="form-label">Renewal Date</label>
+                    <input
+                        id="renewal_date"
+                        name="renewal_date"
+                        className="form-control"
+                        placeholder="Renewal Date"
+                        type="date"
+                        value={formData.renewal_date}
+                        onChange={handleInputChange}
+                    />
+                </div>
+                <button type="submit" className="btn btn-primary">Add Subscription</button>
+            </form>
             <ul>
                 {subscriptions.map((sub, index) => (
                     <li key={index}>
