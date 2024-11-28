@@ -21,4 +21,4 @@ services:
     volumes:
       - ./backend:/app    # Mount the host `backend` folder to the container's `/app` folder
     ports:
-      - "3001:5000"
+      - "5000:5000"
