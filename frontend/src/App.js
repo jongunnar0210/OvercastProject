@@ -51,7 +51,7 @@ const App = () => {
 
     return (
         <div className="App">
-            <h1>Subscription Tracker test</h1>
+            <h1>Subscription Tracker</h1>
             <form onSubmit={handleSubmit} className="container mt-4">
                 <div className="mb-3">
                     <label htmlFor="service_name" className="form-label">Service Name</label>
