@@ -112,7 +112,7 @@ docker-compose up --build
 
 ---
 
-## Advanced Backend Tasks
+## Project Tasks
 
 Add the following functionality to the application, in any way you see fit. The goal here is not necessarily to find the most elegant solution, but a functional one.
 
