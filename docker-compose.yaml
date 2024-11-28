@@ -5,8 +5,12 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/app   # Mount the host `frontend` folder to the container's `/app` folder
+      - /app/node_modules # Prevent node_modules overwriting
+    command: npm start
     ports:
-      - "3000:80"
+      - "3000:3000"
     depends_on:
       - backend
 
@@ -14,5 +18,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    volumes:
+      - ./backend:/app    # Mount the host `backend` folder to the container's `/app` folder
     ports:
-      - "5000:5000"
+      - "3001:5000"

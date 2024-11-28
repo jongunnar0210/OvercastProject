@@ -4,6 +4,8 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from datetime import datetime, timedelta
+import logging
+logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
 CORS(app)
@@ -44,10 +46,12 @@ def add_subscription():
         )
         db.session.add(new_subscription)
         db.session.commit()
+        app.logger.info("Subscription added successfully")
         return jsonify({"message": "Subscription added successfully"}), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
-if __name__ == '__main__':
+if __name__ == '__main__': 
+    app.logger.info('Starting the web server...')
     db.create_all()
     app.run(host="0.0.0.0", port=5000, debug=True,)
