@@ -114,7 +114,7 @@ docker-compose up --build
 
 ## Project Tasks
 
-Add the following functionality to the application, in any way you see fit. The goal here is not necessarily to find the most elegant solution, but a functional one.
+Add the following functionality to the application, in any way you see fit. The goal here is not necessarily to find the most elegant solution, but a functional one. You have complete freedom to use or replace any components in the project as you see fit.
 
 0. **Add Payment Status Tracking**
    - List all subscriptons in the database in the React frontend. The DB is probably empty, so you may need to add some subscriptions first.
