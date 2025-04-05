@@ -17,6 +17,7 @@ const App = () => {
         setFormData({ ...formData, [name]: value });
     };
 
+    // Adds a new subscription to the database:
     const handleSubmit = async (e) => {
         e.preventDefault();
     
