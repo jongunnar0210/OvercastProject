@@ -114,6 +114,17 @@ const App = () => {
                         onChange={handleInputChange}
                     />
                 </div>
+                <div className="mb-3">
+                    <label htmlFor="payment_status" className="form-label">Payment Status</label>
+                    <input
+                        id="payment_status"
+                        name="payment_status"
+                        className="form-control"
+                        placeholder="Payment Status"
+                        value={formData.payment_status}
+                        onChange={handleInputChange}
+                    />
+                </div>
                 <button type="submit" className="btn btn-primary">Add Subscription</button>
             </form>
             <ul>
