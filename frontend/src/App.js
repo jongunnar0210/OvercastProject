@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { BACKEND_HOST } from './constants';
 
@@ -11,6 +11,28 @@ const App = () => {
         cost: '',
         renewal_date: ''
     });
+
+    useEffect(() => {
+        const fetchAllSubscriptions = async () => {
+			try {
+				const response = await fetch(BACKEND_HOST + '/subscriptions');
+                console.log('response: ', response);
+
+				if (!response.ok) {
+					throw new Error(`Error: ${response.statusText}`);
+				}
+				const result = await response.json();
+                setSubscriptions([...subscriptions, ...result]);
+				// setData(result);
+			} catch (err) {
+				setError(err.message);
+			} finally {
+				// setLoading(false);
+			}
+		};
+
+		fetchAllSubscriptions();
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
