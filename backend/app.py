@@ -19,6 +19,7 @@ class Subscription(db.Model):
     service_name = db.Column(db.String(80), nullable=False)
     cost = db.Column(db.Float, nullable=False)
     renewal_date = db.Column(db.Date, nullable=False)
+    payment_status = db.Column(db.String(80), nullable=True)
 
 @app.route('/subscriptions', methods=['GET'])
 def get_subscriptions():
@@ -32,7 +33,8 @@ def get_subscriptions():
         "id": sub.id,
         "service_name": sub.service_name,
         "cost": sub.cost,
-        "renewal_date": sub.renewal_date.isoformat()
+        "renewal_date": sub.renewal_date.isoformat(),
+        "payment_status": sub.payment_status
     } for sub in subscriptions])
 
 @app.route('/subscriptions', methods=['POST'])
@@ -42,7 +44,8 @@ def add_subscription():
         new_subscription = Subscription(
             service_name=data['service_name'],
             cost=data['cost'],
-            renewal_date=datetime.strptime(data['renewal_date'], '%Y-%m-%d').date()
+            renewal_date=datetime.strptime(data['renewal_date'], '%Y-%m-%d').date(),
+            payment_status=data['payment_status']
         )
         db.session.add(new_subscription)
         db.session.commit()

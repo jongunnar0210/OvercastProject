@@ -9,7 +9,8 @@ const App = () => {
     const [formData, setFormData] = useState({
         service_name: '',
         cost: '',
-        renewal_date: ''
+        renewal_date: '',
+        payment_status: ''
     });
 
     useEffect(() => {
@@ -22,10 +23,12 @@ const App = () => {
 					throw new Error(`Error: ${response.statusText}`);
 				}
 				const result = await response.json();
+                console.log('result: ', result);
+
                 setSubscriptions([...subscriptions, ...result]);
 				// setData(result);
 			} catch (err) {
-				setError(err.message);
+                console.log(err.message);
 			} finally {
 				// setLoading(false);
 			}
@@ -116,7 +119,7 @@ const App = () => {
             <ul>
                 {subscriptions.map((sub, index) => (
                     <li key={index}>
-                        {sub.service_name} - ${sub.cost} - Due on {sub.renewal_date}
+                        {sub.service_name} - ${sub.cost} - Due on {sub.renewal_date} - payment status: {sub.payment_status}
                     </li>
                 ))}
             </ul>
