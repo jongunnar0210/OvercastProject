@@ -14,6 +14,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///subscriptions.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+# The main data class for the database and application:
 class Subscription(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     service_name = db.Column(db.String(80), nullable=False)
@@ -21,7 +22,12 @@ class Subscription(db.Model):
     renewal_date = db.Column(db.Date, nullable=False)
     payment_status = db.Column(db.String(80), nullable=False)
     category = db.Column(db.String(80), nullable=False)
+    reminder_sent = db.Column(db.Boolean, nullable=False)
+    canceled = db.Column(db.Boolean, nullable=False)
 
+# Get all subscriptions.
+# Filters are:
+#   'days' (optional) - Filter subscriptions due in the next X days.
 @app.route('/subscriptions', methods=['GET'])
 def get_subscriptions():
     days = request.args.get('days', type=int)
@@ -36,9 +42,24 @@ def get_subscriptions():
         "cost": sub.cost,
         "renewal_date": sub.renewal_date.isoformat(),
         "payment_status": sub.payment_status,
-        "category": sub.category
+        "category": sub.category,
     } for sub in subscriptions])
 
+# Get all subscriptions with pending reminders:
+@app.route('/subscriptions/reminders', methods=['GET'])
+def get_subscriptions_pending_reminders():
+    query = Subscription.query.filter(Subscription.reminder_sent == False)
+    subscriptions = query.all()
+    return jsonify([{
+        "id": sub.id,
+        "service_name": sub.service_name,
+        "cost": sub.cost,
+        "renewal_date": sub.renewal_date.isoformat(),
+        "payment_status": sub.payment_status,
+        "category": sub.category,
+    } for sub in subscriptions])
+
+# Create a subscription:
 @app.route('/subscriptions', methods=['POST'])
 def add_subscription():
     data = request.json
@@ -48,7 +69,9 @@ def add_subscription():
             cost=data['cost'],
             renewal_date=datetime.strptime(data['renewal_date'], '%Y-%m-%d').date(),
             payment_status=data['payment_status'],
-            category=data['category']
+            category=data['category'],
+            reminder_sent=False,
+            canceled=False
         )
         db.session.add(new_subscription)
         db.session.commit()
@@ -57,6 +80,7 @@ def add_subscription():
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
+# Start the web server:
 if __name__ == '__main__': 
     app.logger.info('Starting the web server...')
     db.create_all()

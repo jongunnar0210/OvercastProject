@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { BACKEND_HOST } from './constants';
+import SubscriptionList from './SubscriptionList';
 
 const App = () => {
     const [subscriptions, setSubscriptions] = useState([]);
@@ -27,7 +28,6 @@ const App = () => {
                 console.log('result: ', result);
 
                 setSubscriptions([...subscriptions, ...result]);
-				// setData(result);
 			} catch (err) {
                 console.log(err.message);
 			} finally {
@@ -149,13 +149,7 @@ const App = () => {
                 </div>
                 <button type="submit" className="btn btn-primary">Add Subscription</button>
             </form>
-            <ul>
-                {subscriptions.map((sub, index) => (
-                    <li key={index}>
-                        {sub.service_name} - ${sub.cost} - DUE ON {sub.renewal_date} - PAYMENT STATUS: {sub.payment_status} - CATEGORY: {sub.category}
-                    </li>
-                ))}
-            </ul>
+            <SubscriptionList subscriptions={subscriptions} />
         </div>
     );
 };
