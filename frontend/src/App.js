@@ -10,7 +10,8 @@ const App = () => {
         service_name: '',
         cost: '',
         renewal_date: '',
-        payment_status: 'Pending'
+        payment_status: 'Pending',
+        category: 'Streaming'
     });
 
     useEffect(() => {
@@ -125,28 +126,33 @@ const App = () => {
                         name="payment_status"
                         value={formData.payment_status}
                         onChange={handleInputChange}
-                        // className="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                         className="form-control"
                     >
                         <option value="Pending">Pending</option>
                         <option value="Completed">Completed</option>
                         <option value="Overdue">Overdue</option>
                     </select>
-                    {/* <input
-                        id="payment_status"
-                        name="payment_status"
-                        className="form-control"
-                        placeholder="Payment Status"
-                        value={formData.payment_status}
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="category" className="form-label">Category</label>
+                    <select
+                        id="category"
+                        name="category"
+                        value={formData.category}
                         onChange={handleInputChange}
-                    /> */}
+                        className="form-control"
+                    >
+                        <option value="Streaming">Streaming</option>
+                        <option value="Utilities">Utilities</option>
+                        <option value="Fitness">Fitness</option>
+                    </select>
                 </div>
                 <button type="submit" className="btn btn-primary">Add Subscription</button>
             </form>
             <ul>
                 {subscriptions.map((sub, index) => (
                     <li key={index}>
-                        {sub.service_name} - ${sub.cost} - Due on {sub.renewal_date} - payment status: {sub.payment_status}
+                        {sub.service_name} - ${sub.cost} - DUE ON {sub.renewal_date} - PAYMENT STATUS: {sub.payment_status} - CATEGORY: {sub.category}
                     </li>
                 ))}
             </ul>
