@@ -15,6 +15,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 # The main data class for the database and application:
+# TODO: When we have more time, let the payment_status and category columns be a set of predetermined values
 class Subscription(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     service_name = db.Column(db.String(80), nullable=False)
@@ -28,13 +29,26 @@ class Subscription(db.Model):
 # Get all subscriptions.
 # Filters are:
 #   'days' (optional) - Filter subscriptions due in the next X days.
+#   'payment_status' (optional) - Filter by payment_status.
+#   'category' (optional) - Filter by category.
 @app.route('/subscriptions', methods=['GET'])
 def get_subscriptions():
+    # Extract optional filter parameters and set local values:
     days = request.args.get('days', type=int)
+    payment_status = request.args.get('payment_status', type=str)
+    category = request.args.get('category', type=str)
     today = datetime.today().date()
     query = Subscription.query.filter(Subscription.canceled == False)
+
+    # Use the possible filters:
     if days:
         query = query.filter(Subscription.renewal_date <= today + timedelta(days=days))
+    if payment_status and payment_status != '':
+        query = query.filter(Subscription.payment_status == payment_status)
+    if category and category != '':
+        query = query.filter(Subscription.category == category)
+
+    # Get the data from the database and return it:
     subscriptions = query.all()
     return jsonify([{
         "id": sub.id,
@@ -95,24 +109,6 @@ def cancel_subscription(serviceName):
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': 'Failed to cancel subscription', 'details': str(e)}), 500
-    
-    # data = request.json
-    # try:
-    #     new_subscription = Subscription(
-    #         service_name=data['service_name'],
-    #         cost=data['cost'],
-    #         renewal_date=datetime.strptime(data['renewal_date'], '%Y-%m-%d').date(),
-    #         payment_status=data['payment_status'],
-    #         category=data['category'],
-    #         reminder_sent=False,
-    #         canceled=False
-    #     )
-    #     db.session.add(new_subscription)
-    #     db.session.commit()
-    #     app.logger.info("Subscription added successfully")
-    #     return jsonify({"message": "Subscription added successfully"}), 201
-    # except Exception as e:
-    #     return jsonify({"error": str(e)}), 400
 
 # Start the web server:
 if __name__ == '__main__': 

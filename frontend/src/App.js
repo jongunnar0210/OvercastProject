@@ -1,9 +1,9 @@
-
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { BACKEND_HOST } from './constants';
 import SubscriptionList from './SubscriptionList';
 import AddSubscriptionForm from './AddSubscriptionForm';
+import SubscriptionFilters from './SubscriptionFilters';
 
 const App = () => {
     const [subscriptions, setSubscriptions] = useState([]);
@@ -17,10 +17,18 @@ const App = () => {
         category: 'Streaming'
     });
 
+    const [filters, setFilters] = useState({
+        payment_status: '',
+        category: ''
+    });
+
+    // Fetch and display the subscription list:
     useEffect(() => {
         const fetchAllSubscriptions = async () => {
 			try {
-				const response = await fetch(BACKEND_HOST + '/subscriptions');
+                // Fetch the subscriptions with our filters. At the moment we're not using 'days',
+                // even though the backend supports it:
+				const response = await fetch(BACKEND_HOST + `/subscriptions?payment_status=${filters.payment_status}&category=${filters.category}`);
                 console.log('response: ', response);
 
 				if (!response.ok) {
@@ -29,7 +37,8 @@ const App = () => {
 				const result = await response.json();
                 console.log('result: ', result);
 
-                setSubscriptions([...subscriptions, ...result]);
+                // setSubscriptions([...subscriptions, ...result]);
+                setSubscriptions([...result]);
 			} catch (err) {
                 console.log(err.message);
 			} finally {
@@ -38,7 +47,7 @@ const App = () => {
 		};
 
 		fetchAllSubscriptions();
-    }, []);
+    }, [filters]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -47,6 +56,15 @@ const App = () => {
         console.log('value: ', value);
 
         setFormData({ ...formData, [name]: value });
+    };
+
+    const handleFilterChange = (e) => {
+        const { name, value } = e.target;
+        console.log('handleFilterChange:');
+        console.log('name: ', name);
+        console.log('value: ', value);
+
+        setFilters({ ...filters, [name]: value });
     };
 
     const cancelSubscriptionClick = async (service_name) => {
@@ -103,6 +121,10 @@ const App = () => {
     
                 // Reset the form fields
                 setFormData({ service_name: '', cost: '', renewal_date: '', payment_status: 'Pending', category: 'Streaming' });
+
+                // Reset the filters because the user might have just created a subscription with a currently set filter and we want it
+                // to appear right away instead of confusing him/her:
+                setFilters({payment_status: '', category: ''});
             } else {
                 const errorData = await response.json();
                 console.error('Error adding subscription:', errorData);
@@ -120,6 +142,7 @@ const App = () => {
             <main>
                 <AddSubscriptionForm formData={formData} handleSubmit={handleSubmit} handleInputChange={handleInputChange} />
                 <SubscriptionList subscriptions={subscriptions} cancelSubscriptionClick={cancelSubscriptionClick} />
+                <SubscriptionFilters filters={filters} handleFilterChange={handleFilterChange} />
             </main>
         </div>
     );

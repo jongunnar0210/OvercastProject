@@ -36,9 +36,10 @@ button:hover {
     background-color: #45a049;
 }
 
-ul {
+div ul {
     list-style-type: none;
     padding: 0;
+    padding-left: 0;
 }
 
 li {
@@ -57,8 +58,12 @@ main {
     justify-content: center;
 }
 
-.subscriptions {
+.subscriptions, .filters {
     margin-top: 1.5rem;
+}
+
+.subscriptions {
+    width: 800px;
 }
 
 .creation-form {
