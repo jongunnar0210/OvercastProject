@@ -10,7 +10,7 @@ const App = () => {
         service_name: '',
         cost: '',
         renewal_date: '',
-        payment_status: ''
+        payment_status: 'Pending'
     });
 
     useEffect(() => {
@@ -39,6 +39,10 @@ const App = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+        console.log('handleInputChange:');
+        console.log('name: ', name);
+        console.log('value: ', value);
+
         setFormData({ ...formData, [name]: value });
     };
 
@@ -116,14 +120,26 @@ const App = () => {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="payment_status" className="form-label">Payment Status</label>
-                    <input
+                    <select
+                        id="payment_status"
+                        name="payment_status"
+                        value={formData.payment_status}
+                        onChange={handleInputChange}
+                        // className="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        className="form-control"
+                    >
+                        <option value="Pending">Pending</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Overdue">Overdue</option>
+                    </select>
+                    {/* <input
                         id="payment_status"
                         name="payment_status"
                         className="form-control"
                         placeholder="Payment Status"
                         value={formData.payment_status}
                         onChange={handleInputChange}
-                    />
+                    /> */}
                 </div>
                 <button type="submit" className="btn btn-primary">Add Subscription</button>
             </form>

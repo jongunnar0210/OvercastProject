@@ -19,7 +19,7 @@ class Subscription(db.Model):
     service_name = db.Column(db.String(80), nullable=False)
     cost = db.Column(db.Float, nullable=False)
     renewal_date = db.Column(db.Date, nullable=False)
-    payment_status = db.Column(db.String(80), nullable=True)
+    payment_status = db.Column(db.String(80), nullable=False)
 
 @app.route('/subscriptions', methods=['GET'])
 def get_subscriptions():
