@@ -8,6 +8,7 @@ const App = () => {
     const [subscriptions, setSubscriptions] = useState([]);
 
     const [formData, setFormData] = useState({
+        // TODO: Perhaps add "id: 0,"
         service_name: '',
         cost: '',
         renewal_date: '',
@@ -47,8 +48,39 @@ const App = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const cancelSubscriptionClick = (subscriptionId) => {
+    const cancelSubscriptionClick = async (subscriptionId) => {
         console.log('subscriptionId: ', subscriptionId);
+
+        try {
+            const response = await fetch(BACKEND_HOST + `/subscriptions/${subscriptionId}/cancel`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                // body: JSON.stringify(formData),
+            });
+
+            console.log('cancel body: ', response);
+    
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Canceled:', subscriptionId);
+                console.log('Canceled data:', data);
+                
+                // Update the subscriptions list locally:
+                setSubscriptions(subscriptions.filter((sub) => sub.id !== subscriptionId));
+    
+                // Reset the form fields
+                setFormData({ service_name: '', cost: '', renewal_date: '' });
+            } else {
+                const errorData = await response.json();
+                console.error('Error canceling subscription:', errorData);
+                alert('Failed to cancel subscription: ' + errorData.error);
+            }
+        } catch (error) {
+            console.error('Error connecting to the backend:', error);
+            alert('Error connecting to the backend.');
+        }
     }
 
     // Adds a new subscription to the database:
