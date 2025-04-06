@@ -81,19 +81,20 @@ def add_subscription():
         return jsonify({"error": str(e)}), 400
 
 # Cancel a subscription:
-@app.route('/subscriptions/<int:id>/cancel', methods=['PUT'])
-def cancel_subscription(id):
-    subscription = Subscription.query.get(id)
-    if not subscription:
+@app.route('/subscriptions/<string:serviceName>/cancel', methods=['PUT'])
+def cancel_subscription(serviceName):
+    subscriptions = Subscription.query.filter_by(service_name=serviceName).all()
+    if not subscriptions:
         return jsonify({'error': 'Subscription not found'}), 404
 
     try:
-        subscription.canceled = True
+        for subscription in subscriptions:
+            subscription.canceled = True
         db.session.commit()
-        return jsonify({'message': f'Subscription {id} canceled successfully'}), 200
+        return jsonify({'message': f'Subscription {serviceName} canceled successfully'}), 200
     except Exception as e:
         db.session.rollback()
-        return jsonify({'error': 'Failed to update subscription', 'details': str(e)}), 500
+        return jsonify({'error': 'Failed to cancel subscription', 'details': str(e)}), 500
     
     # data = request.json
     # try:

@@ -48,11 +48,11 @@ const App = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const cancelSubscriptionClick = async (subscriptionId) => {
-        console.log('subscriptionId: ', subscriptionId);
+    const cancelSubscriptionClick = async (service_name) => {
+        console.log('service_name: ', service_name);
 
         try {
-            const response = await fetch(BACKEND_HOST + `/subscriptions/${subscriptionId}/cancel`, {
+            const response = await fetch(BACKEND_HOST + `/subscriptions/${service_name}/cancel`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -64,14 +64,11 @@ const App = () => {
     
             if (response.ok) {
                 const data = await response.json();
-                console.log('Canceled:', subscriptionId);
+                console.log('Canceled:', service_name);
                 console.log('Canceled data:', data);
                 
                 // Update the subscriptions list locally:
-                setSubscriptions(subscriptions.filter((sub) => sub.id !== subscriptionId));
-    
-                // Reset the form fields
-                setFormData({ service_name: '', cost: '', renewal_date: '' });
+                setSubscriptions(subscriptions.filter((sub) => sub.service_name !== service_name));
             } else {
                 const errorData = await response.json();
                 console.error('Error canceling subscription:', errorData);
@@ -104,7 +101,7 @@ const App = () => {
                 setSubscriptions([...subscriptions, formData]);
     
                 // Reset the form fields
-                setFormData({ service_name: '', cost: '', renewal_date: '' });
+                setFormData({ service_name: '', cost: '', renewal_date: '', payment_status: 'Pending', category: 'Streaming' });
             } else {
                 const errorData = await response.json();
                 console.error('Error adding subscription:', errorData);

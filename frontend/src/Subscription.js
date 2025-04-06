@@ -7,7 +7,7 @@ const Subscription = ({sub, index, cancelSubscriptionClick}) => {
             <div>
                 {sub.service_name} - ${sub.cost} - DUE ON {sub.renewal_date} - PAYMENT STATUS: {sub.payment_status} - CATEGORY: {sub.category}
             </div>
-            <button onClick={() => {cancelSubscriptionClick(sub.id)}}>Cancel Subscription</button>
+            <button onClick={() => {cancelSubscriptionClick(sub.service_name)}}>Cancel Subscription</button>
         </li>
     );
 };
