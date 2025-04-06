@@ -46,7 +46,28 @@ li {
     margin: 5px auto;
     padding: 10px;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 80%;
-    max-width: 800px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    /* width: 80%;
+    max-width: 800px; */
+}
+
+main {
+    display: flex;
+    column-gap: 40px;
+    justify-content: center;
+}
+
+.subscriptions {
+    margin-top: 1.5rem;
+}
+
+.creation-form {
+    max-width: 400px;
+    /* margin: 0 auto; */
+    align-items: start;
+}
+
+.subscription-listitem {
+    display: flex;
+    justify-content: space-between;
 }
