@@ -78,7 +78,7 @@ def get_subscriptions_pending_reminders():
 def get_subscriptions_summary():
     try:
         # Fetch aggregated data from db:
-        results = Subscription.query.with_entities(
+        results = Subscription.query.filter(Subscription.canceled == False).with_entities(
             db.func.sum(Subscription.cost),
             db.func.sum(db.case([(Subscription.category == 'Streaming', Subscription.cost)], else_=0)),
             db.func.sum(db.case([(Subscription.category == 'Utilities', Subscription.cost)], else_=0)),

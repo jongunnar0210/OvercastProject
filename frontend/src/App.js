@@ -18,10 +18,9 @@ const App = () => {
         category: 'Streaming'
     });
 
-    const [filters, setFilters] = useState({
-        payment_status: '',
-        category: ''
-    });
+    const INITIAL_FILTER_STATUS = {payment_status: '', category: ''};
+
+    const [filters, setFilters] = useState(INITIAL_FILTER_STATUS);
 
     const [costAnalysis, setCostAnalysis] = useState({
         total_cost: 0,
@@ -107,6 +106,9 @@ const App = () => {
                 
                 // Update the subscriptions list locally:
                 setSubscriptions(subscriptions.filter((sub) => sub.service_name !== service_name));
+
+                // Remove all filters:
+                setFilters(INITIAL_FILTER_STATUS);
             } else {
                 const errorData = await response.json();
                 console.error('Error canceling subscription:', errorData);
@@ -143,7 +145,7 @@ const App = () => {
 
                 // Reset the filters because the user might have just created a subscription with a currently set filter and we want it
                 // to appear right away instead of confusing him/her:
-                setFilters({payment_status: '', category: ''});
+                setFilters(INITIAL_FILTER_STATUS);
             } else {
                 const errorData = await response.json();
                 console.error('Error adding subscription:', errorData);

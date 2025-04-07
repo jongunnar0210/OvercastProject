@@ -8,11 +8,17 @@ const SubscriptionList = ({subscriptions, cancelSubscriptionClick}) => {
             <h5>SUBSCRIPTIONS</h5>
             <section>
                 <label>Your subscriptions</label>
-                <ul>
-                    {subscriptions.map((sub, index) => (
-                        <Subscription key={index} sub={sub} index={index} cancelSubscriptionClick={cancelSubscriptionClick} />
-                    ))}
-                </ul>
+                {
+                    subscriptions.length > 0 ? (
+                        <ul>
+                            {subscriptions.map((sub, index) => (
+                                <Subscription key={index} sub={sub} index={index} cancelSubscriptionClick={cancelSubscriptionClick} />
+                            ))}
+                        </ul>
+                    ) : (
+                        <div><i>You have no subscriptions</i></div>
+                    )
+                }
             </section>
         </div>
     );
