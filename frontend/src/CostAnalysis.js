@@ -1,19 +1,36 @@
 import React from 'react';
 import './App.css';
-import Subscription from './Subscription';
 
+// Show insights into the user's subscription spending.
 const CostAnalysis = ({costAnalysis}) => {
     return (
-        <div className="summary-container">
+        <div className="cost-analysis">
             <h5>COST ANALYSIS</h5>
             {costAnalysis && (
-                <div className="summary-cards">
-                    <div className="card">Total Cost: ${costAnalysis.total_cost.toFixed(0)}</div>
-                    <div className="card">Streaming Cost: ${costAnalysis.streaming_cost.toFixed(0)}</div>
-                    <div className="card">Utilities Cost: ${costAnalysis.utilities_cost.toFixed(0)}</div>
-                    <div className="card">Fitness Cost: ${costAnalysis.fitness_cost.toFixed(0)}</div>
+                <div class="card-wrapper">
+                    <SummaryCards costAnalysis={costAnalysis} granularity='monthly' />
+                    <SummaryCards costAnalysis={costAnalysis} granularity='annual' />
                 </div>
             )}
+        </div>
+    );
+};
+
+// 'granularity' can be either 'monthly' or 'annual':
+const SummaryCards = ({costAnalysis, granularity}) => {
+    const multiplyer = () => {
+        return granularity === 'monthly' ? 1 : 12;
+    }
+    
+    return (
+        <div className="summary-container">
+            <h6>{granularity === 'monthly' ? 'MONTHLY' : 'ANNUALLY'}</h6>
+            <div className="summary-cards">
+                <div className="card">Total: ${costAnalysis.total_cost * multiplyer()}</div>
+                <div className="card">Streaming: ${costAnalysis.streaming_cost * multiplyer()}</div>
+                <div className="card">Utilities: ${costAnalysis.utilities_cost * multiplyer()}</div>
+                <div className="card">Fitness: ${costAnalysis.fitness_cost * multiplyer()}</div>
+            </div>
         </div>
     );
 };

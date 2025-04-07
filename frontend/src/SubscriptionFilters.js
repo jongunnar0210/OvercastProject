@@ -4,7 +4,7 @@ import './App.css';
 const SubscriptionFilters = ({filters, handleFilterChange}) => {
     return (
         <div className='filters'>
-            <h5>FILTERS</h5>
+            <h5>FILTER BY</h5>
             <div className="mb-3">
                 <label htmlFor="payment_status" className="form-label">Payment Status</label>
                 <select

@@ -83,10 +83,18 @@ main {
     align-items: center;
 }
 
-.summary-container {
-    /* padding: 16px; */
-    font-family: Arial, sans-serif;
+.card-wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+    margin-top: 20px;
 }
+
+/* .summary-container {
+    padding: 16px;
+    font-family: Arial, sans-serif;
+    margin-bottom: 40px;
+} */
 
 .summary-cards {
     display: grid;
@@ -99,3 +107,4 @@ main {
     border-radius: 4px;
     background-color: #f9f9f9;
 }
+
