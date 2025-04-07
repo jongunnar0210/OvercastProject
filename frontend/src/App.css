@@ -21,8 +21,12 @@ form {
 input, button {
     margin: 10px 0;
     padding: 10px;
-    width: 80%;
+    /* width: 80%; */
     max-width: 300px;
+}
+
+input {
+    width: 80%;
 }
 
 button {
@@ -76,6 +80,7 @@ main {
 .subscription-listitem {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .summary-container {
