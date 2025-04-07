@@ -61,14 +61,11 @@ const App = () => {
 			try {
                 // Fetch the cost analysis:
 				const response = await fetch(BACKEND_HOST + '/subscriptions/summary');
-                console.log('Cost analysis response: ', response);
-
 				if (!response.ok) {
 					throw new Error(`Error: ${response.statusText}`);
 				}
-				const result = await response.json();
-                console.log('Cost analysis result: ', result);
 
+				const result = await response.json();
                 setCostAnalysis(result);
 			} catch (err) {
                 console.log(err.message);

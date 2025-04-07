@@ -7,10 +7,12 @@ const CostAnalysis = ({costAnalysis}) => {
         <div className="cost-analysis">
             <h5>COST ANALYSIS</h5>
             {costAnalysis && (
-                <div class="card-wrapper">
-                    <SummaryCards costAnalysis={costAnalysis} granularity='monthly' />
-                    <SummaryCards costAnalysis={costAnalysis} granularity='annual' />
-                </div>
+                <section>
+                    <div className="card-wrapper">
+                        <SummaryCards costAnalysis={costAnalysis} granularity='monthly' />
+                        <SummaryCards costAnalysis={costAnalysis} granularity='annual' />
+                    </div>
+                </section>
             )}
         </div>
     );

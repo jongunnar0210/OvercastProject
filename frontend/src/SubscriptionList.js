@@ -4,13 +4,16 @@ import Subscription from './Subscription';
 
 const SubscriptionList = ({subscriptions, cancelSubscriptionClick}) => {
     return (
-        <div class="subscriptions">
+        <div className="subscriptions">
             <h5>SUBSCRIPTIONS</h5>
-            <ul>
-                {subscriptions.map((sub, index) => (
-                    <Subscription key={index} sub={sub} index={index} cancelSubscriptionClick={cancelSubscriptionClick} />
-                ))}
-            </ul>
+            <section>
+                <label>Your subscriptions</label>
+                <ul>
+                    {subscriptions.map((sub, index) => (
+                        <Subscription key={index} sub={sub} index={index} cancelSubscriptionClick={cancelSubscriptionClick} />
+                    ))}
+                </ul>
+            </section>
         </div>
     );
 };
