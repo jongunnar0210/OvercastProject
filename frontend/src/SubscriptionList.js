@@ -5,7 +5,7 @@ import Subscription from './Subscription';
 const SubscriptionList = ({subscriptions, cancelSubscriptionClick}) => {
     return (
         <div class="subscriptions">
-            <h4>Subscriptions</h4>
+            <h5>SUBSCRIPTIONS</h5>
             <ul>
                 {subscriptions.map((sub, index) => (
                     <Subscription key={index} sub={sub} index={index} cancelSubscriptionClick={cancelSubscriptionClick} />

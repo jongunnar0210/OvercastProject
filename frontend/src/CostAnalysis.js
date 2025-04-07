@@ -5,7 +5,7 @@ import Subscription from './Subscription';
 const CostAnalysis = ({costAnalysis}) => {
     return (
         <div className="summary-container">
-            <h4>Cost Analysis</h4>
+            <h5>COST ANALYSIS</h5>
             {costAnalysis && (
                 <div className="summary-cards">
                     <div className="card">Total Cost: ${costAnalysis.total_cost.toFixed(0)}</div>

@@ -4,7 +4,7 @@ import './App.css';
 const AddSubscriptionForm = ({formData, handleSubmit, handleInputChange}) => {
     return (
         <div className='add-subscription'>
-            <h4>Add Subscription</h4>
+            <h5>ADD SUBSCRIPTION</h5>
             <form onSubmit={handleSubmit} className="creation-form mt-4">
                 <div className="mb-3">
                     <label htmlFor="service_name" className="form-label">Service Name</label>
