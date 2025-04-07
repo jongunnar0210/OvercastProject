@@ -10,13 +10,25 @@ const App = () => {
     const [subscriptions, setSubscriptions] = useState([]);
 
     const [formData, setFormData] = useState({
-        // TODO: Perhaps add "id: 0,"
         service_name: '',
-        cost: '',
+        cost: 1,
         renewal_date: '',
         payment_status: 'Pending',
         category: 'Streaming'
     });
+
+    useEffect(() => {
+        let tmpDate = new Date();
+        tmpDate.setMonth(tmpDate.getMonth() + 1);   // One month ahead is a good starting point.
+
+        setFormData({
+            service_name: '',
+            cost: 1,
+            renewal_date: tmpDate.toISOString().split('T')[0],
+            payment_status: 'Pending',
+            category: 'Streaming'
+        });
+    }, [subscriptions]);
 
     const INITIAL_FILTER_STATUS = {payment_status: '', category: ''};
 
@@ -76,6 +88,7 @@ const App = () => {
 		fetchCostAnalysis();
     }, [subscriptions]);
 
+    // In the future don't allow illegal values or renewal dates in the past f.ex.:
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -87,8 +100,6 @@ const App = () => {
     };
 
     const cancelSubscriptionClick = async (service_name) => {
-        console.log('service_name: ', service_name);
-
         try {
             const response = await fetch(BACKEND_HOST + `/subscriptions/${service_name}/cancel`, {
                 method: 'PUT',
@@ -97,13 +108,9 @@ const App = () => {
                 },
             });
 
-            console.log('cancel body: ', response);
-    
             if (response.ok) {
                 const data = await response.json();
-                console.log('Canceled:', service_name);
-                console.log('Canceled data:', data);
-                
+
                 // Update the subscriptions list locally:
                 setSubscriptions(subscriptions.filter((sub) => sub.service_name !== service_name));
 
@@ -135,14 +142,10 @@ const App = () => {
     
             if (response.ok) {
                 const data = await response.json();
-                console.log('Subscription added:', data);
                 
-                // Optionally, update the subscriptions list locally
+                // Update the subscriptions list locally. This will also reset formData inside the useEffect above:
                 setSubscriptions([...subscriptions, formData]);
     
-                // Reset the form fields
-                setFormData({ service_name: '', cost: '', renewal_date: '', payment_status: 'Pending', category: 'Streaming' });
-
                 // Reset the filters because the user might have just created a subscription with a currently set filter and we want it
                 // to appear right away instead of confusing him/her:
                 setFilters(INITIAL_FILTER_STATUS);

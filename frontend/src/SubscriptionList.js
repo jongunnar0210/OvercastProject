@@ -7,7 +7,7 @@ const SubscriptionList = ({subscriptions, cancelSubscriptionClick}) => {
         <div className="subscriptions">
             <h5>SUBSCRIPTIONS</h5>
             <section>
-                <label>Your subscriptions</label>
+                <label>{subscriptions.length > 0 ? 'Your subscriptions' : 'You have no subscriptions'}</label>
                 {
                     subscriptions.length > 0 ? (
                         <ul>
@@ -16,7 +16,7 @@ const SubscriptionList = ({subscriptions, cancelSubscriptionClick}) => {
                             ))}
                         </ul>
                     ) : (
-                        <div><i>You have no subscriptions</i></div>
+                        null
                     )
                 }
             </section>

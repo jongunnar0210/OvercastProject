@@ -34,6 +34,14 @@ button {
     padding: 5px 10px;
 }
 
+button:disabled, button:disabled:hover {
+    background-color: #9ebff1;
+}
+
+button:focus {
+    outline: none;
+}
+
 .submit-button {
     /* background-color: #4CAF50; */
     background-color: #0d6efd;

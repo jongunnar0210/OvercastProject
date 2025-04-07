@@ -1,10 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './App.css';
 
 const ConfirmationDialog = ({ title, onConfirm, onCancel }) => {
+    useEffect(() => {
+        const handleEscape = (event) => {
+            if (event.key === 'Escape') {
+                onCancel();
+                // Remove focus from any button
+                document.activeElement?.blur();
+            }
+        };
+        window.addEventListener('keydown', handleEscape);
+        return () => window.removeEventListener('keydown', handleEscape);
+    }, [onCancel]);
+
+    const handleOverlayClick = (event) => {
+        if (event.target.className === 'dialog-overlay') {
+            onCancel();
+        }
+    };
+
     return ReactDOM.createPortal(
-        <div className="dialog-overlay">
+        <div className="dialog-overlay" onClick={handleOverlayClick}>
             <div className="dialog-box">
                 <h5>{title}</h5>
                 <div className="dialog-buttons">
