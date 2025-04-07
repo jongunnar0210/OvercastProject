@@ -117,3 +117,45 @@ section {
     background-color: #f9f9f9;
 }
 
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    min-width: 300px;
+}
+
+.dialog-buttons {
+    margin-top: 10px;
+}
+
+.final-confirm-button, .final-cancel-button {
+    margin: 5px;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.final-confirm-button {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.final-cancel-button {
+    background-color: #f44336;
+    color: white;
+}
