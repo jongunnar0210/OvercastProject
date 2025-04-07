@@ -5,9 +5,9 @@ const Subscription = ({sub, index, cancelSubscriptionClick}) => {
     return (
         <li key={index} className='subscription-listitem'>
             <div>
-                {sub.service_name} - ${sub.cost} - DUE {sub.renewal_date} - STATUS: {sub.payment_status} - CATEGORY: {sub.category}
+                <strong>{sub.service_name}</strong> - <i>${sub.cost}</i> - DUE <i>{sub.renewal_date}</i> - STATUS: <i>{sub.payment_status}</i> - CATEGORY: <i>{sub.category}</i>
             </div>
-            <button onClick={() => {cancelSubscriptionClick(sub.service_name)}}>Cancel Subscription</button>
+            <button onClick={() => {cancelSubscriptionClick(sub.service_name)}}>Cancel</button>
         </li>
     );
 };
