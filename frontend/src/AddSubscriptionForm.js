@@ -70,7 +70,7 @@ const AddSubscriptionForm = ({formData, handleSubmit, handleInputChange}) => {
                             <option value="Fitness">Fitness</option>
                         </select>
                     </div>
-                    <button type="submit" className="btn btn-primary">Add Subscription</button>
+                    <button type="submit" className='submit-button'>ADD SUBSCRIPTION</button>
                 </form>
             </section>
         </div>

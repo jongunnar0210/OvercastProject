@@ -28,14 +28,29 @@ input {
 }
 
 button {
-    background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #45a049;
+.submit-button {
+    /* background-color: #4CAF50; */
+    background-color: #0d6efd;
+    border-radius: 6px;
+}
+
+.submit-button:hover {
+    /* background-color: #45a049; */
+    background-color: #095ad3;
+}
+
+.cancel-button {
+    background-color: #e06464;
+    border-radius: 6px;
+}
+
+.cancel-button:hover {
+    background-color: #dd5050;
 }
 
 div ul {
