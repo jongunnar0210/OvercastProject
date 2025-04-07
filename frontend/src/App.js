@@ -4,6 +4,7 @@ import { BACKEND_HOST } from './constants';
 import SubscriptionList from './SubscriptionList';
 import AddSubscriptionForm from './AddSubscriptionForm';
 import SubscriptionFilters from './SubscriptionFilters';
+import CostAnalysis from './CostAnalysis';
 
 const App = () => {
     const [subscriptions, setSubscriptions] = useState([]);
@@ -22,6 +23,13 @@ const App = () => {
         category: ''
     });
 
+    const [costAnalysis, setCostAnalysis] = useState({
+        total_cost: 0,
+        streaming_cost: 0,
+        utilities_cost: 0,
+        fitness_cost: 0
+    });
+
     // Fetch and display the subscription list:
     useEffect(() => {
         const fetchAllSubscriptions = async () => {
@@ -29,15 +37,11 @@ const App = () => {
                 // Fetch the subscriptions with our filters. At the moment we're not using 'days',
                 // even though the backend supports it:
 				const response = await fetch(BACKEND_HOST + `/subscriptions?payment_status=${filters.payment_status}&category=${filters.category}`);
-                console.log('response: ', response);
-
 				if (!response.ok) {
 					throw new Error(`Error: ${response.statusText}`);
 				}
-				const result = await response.json();
-                console.log('result: ', result);
 
-                // setSubscriptions([...subscriptions, ...result]);
+				const result = await response.json();
                 setSubscriptions([...result]);
 			} catch (err) {
                 console.log(err.message);
@@ -49,21 +53,40 @@ const App = () => {
 		fetchAllSubscriptions();
     }, [filters]);
 
+    // Fetch and display the cost analysis:
+    // In this case we simplify by always fetching this data from the database
+    // because our local subscription list might be filtered. Later, optimize.
+    useEffect(() => {
+        const fetchCostAnalysis = async () => {
+			try {
+                // Fetch the cost analysis:
+				const response = await fetch(BACKEND_HOST + '/subscriptions/summary');
+                console.log('Cost analysis response: ', response);
+
+				if (!response.ok) {
+					throw new Error(`Error: ${response.statusText}`);
+				}
+				const result = await response.json();
+                console.log('Cost analysis result: ', result);
+
+                setCostAnalysis(result);
+			} catch (err) {
+                console.log(err.message);
+			} finally {
+				// setLoading(false);
+			}
+		};
+
+		fetchCostAnalysis();
+    }, [subscriptions]);
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        console.log('handleInputChange:');
-        console.log('name: ', name);
-        console.log('value: ', value);
-
         setFormData({ ...formData, [name]: value });
     };
 
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
-        console.log('handleFilterChange:');
-        console.log('name: ', name);
-        console.log('value: ', value);
-
         setFilters({ ...filters, [name]: value });
     };
 
@@ -76,7 +99,6 @@ const App = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                // body: JSON.stringify(formData),
             });
 
             console.log('cancel body: ', response);
@@ -143,6 +165,7 @@ const App = () => {
                 <AddSubscriptionForm formData={formData} handleSubmit={handleSubmit} handleInputChange={handleInputChange} />
                 <SubscriptionList subscriptions={subscriptions} cancelSubscriptionClick={cancelSubscriptionClick} />
                 <SubscriptionFilters filters={filters} handleFilterChange={handleFilterChange} />
+                <CostAnalysis costAnalysis={costAnalysis} />
             </main>
         </div>
     );

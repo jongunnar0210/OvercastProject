@@ -73,6 +73,30 @@ def get_subscriptions_pending_reminders():
         "category": sub.category,
     } for sub in subscriptions])
 
+# Get a cost analysis:
+@app.route('/subscriptions/summary', methods=['GET'])
+def get_subscriptions_summary():
+    try:
+        # Fetch aggregated data from db:
+        results = Subscription.query.with_entities(
+            db.func.sum(Subscription.cost),
+            db.func.sum(db.case([(Subscription.category == 'Streaming', Subscription.cost)], else_=0)),
+            db.func.sum(db.case([(Subscription.category == 'Utilities', Subscription.cost)], else_=0)),
+            db.func.sum(db.case([(Subscription.category == 'Fitness', Subscription.cost)], else_=0))
+        ).one()
+
+        # Return response object:
+        summary = {
+            'total_cost': results[0] or 0.0,
+            'streaming_cost': results[1] or 0.0,
+            'utilities_cost': results[2] or 0.0,
+            'fitness_cost': results[3] or 0.0
+        }
+
+        return jsonify(summary), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 # Create a subscription:
 @app.route('/subscriptions', methods=['POST'])
 def add_subscription():
