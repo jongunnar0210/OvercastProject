@@ -1,3 +1,21 @@
+# Comments from Jon Gunnar on possible improvements from his assignment:
+
+- Have someone create a Figma design and follow it.
+- Use Typescript.
+- Disallow duplicate service names. I didn't have time to add that.
+     Probably the best solution would be to show an error popup when the backend spots duplicates,
+     because the subscription list in the backend can be different from the frontend,
+     f.ex. the frontend list could be filtered and also not showing canceled subscriptions.
+- Make the application responsive and look good on smaller screens.
+- Improve error handling with popups and logging.
+- Use rem instead of px in the css.
+- Make a decision on whether to continue with css, scss, bootstrap, tailwind or a combination.
+     Here I'm mostly using css in App.css.
+- Improve the UI look for the Subscription component that represents a single subscription.
+     Create a separate component for each subscription field and make them line up to each other visually.
+
+---
+
 # Subscription Tracker Project
 
 This project is a simple subscription tracker application with a Flask backend and ReactJS frontend, using SQLite for data storage. It is containerized with Docker to streamline setup and deployment.
