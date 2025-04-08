@@ -5,6 +5,7 @@ import SubscriptionList from './SubscriptionList';
 import AddSubscriptionForm from './AddSubscriptionForm';
 import SubscriptionFilters from './SubscriptionFilters';
 import CostAnalysis from './CostAnalysis';
+import Image from './images/background.jpg';
 
 const App = () => {
     const [subscriptions, setSubscriptions] = useState([]);
@@ -161,7 +162,7 @@ const App = () => {
     };
 
     return (
-        <div className="App">
+        <div className="App" style={{ backgroundImage: `url(${Image})` }}>
             <h1>Subscription Tracker</h1>
             <main>
                 <AddSubscriptionForm formData={formData} handleSubmit={handleSubmit} handleInputChange={handleInputChange} />
