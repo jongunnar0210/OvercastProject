@@ -16,6 +16,7 @@ const AddSubscriptionForm = ({formData, handleSubmit, handleInputChange}) => {
                             placeholder="Service Name"
                             value={formData.service_name}
                             onChange={handleInputChange}
+                            maxLength={20}
                         />
                     </div>
                     <div className="mb-3">
