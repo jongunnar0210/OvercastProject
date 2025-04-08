@@ -59,7 +59,8 @@ def get_subscriptions():
         "category": sub.category,
     } for sub in subscriptions])
 
-# Get all subscriptions with pending reminders:
+# Get all subscriptions with pending reminders.
+# Currently just supported and not used in our application:
 @app.route('/subscriptions/reminders', methods=['GET'])
 def get_subscriptions_pending_reminders():
     query = Subscription.query.filter(Subscription.reminder_sent == False and Subscription.canceled == False)
