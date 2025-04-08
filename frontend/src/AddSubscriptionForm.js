@@ -70,7 +70,7 @@ const AddSubscriptionForm = ({formData, handleSubmit, handleInputChange}) => {
                             <option value="Fitness">Fitness</option>
                         </select>
                     </div>
-                    <button type="submit" className='submit-button' disabled={!formData.service_name}>ADD SUBSCRIPTION</button>
+                    <button type="submit" className='action-button' disabled={!formData.service_name}>ADD SUBSCRIPTION</button>
                 </form>
             </section>
         </div>

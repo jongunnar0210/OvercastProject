@@ -42,15 +42,19 @@ button:focus {
     outline: none;
 }
 
-.submit-button {
+.action-button {
     /* background-color: #4CAF50; */
     background-color: #0d6efd;
     border-radius: 6px;
 }
 
-.submit-button:hover {
+.action-button:hover {
     /* background-color: #45a049; */
     background-color: #095ad3;
+}
+
+.action-button:disabled:hover {
+    cursor: default;
 }
 
 .cancel-button {
@@ -125,6 +129,15 @@ section {
     background-color: #f9f9f9;
 }
 
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes scaleUp {
+    from { transform: scale(0.8); }
+    to { transform: scale(1); }
+}
+
 .dialog-overlay {
     position: fixed;
     top: 0;
@@ -135,6 +148,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: fadeIn 0.3s ease-out;
 }
 
 .dialog-box {
@@ -143,7 +157,8 @@ section {
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
-    min-width: 300px;
+    min-width: 250px;
+    animation: scaleUp 0.2s ease-out;
 }
 
 .dialog-buttons {
@@ -163,7 +178,15 @@ section {
     color: white;
 }
 
+.final-confirm-button:hover {
+    background-color: #399e3d;
+}
+
 .final-cancel-button {
     background-color: #f44336;
     color: white;
+}
+
+.final-cancel-button:hover {
+    background-color: #db3327;
 }
