@@ -8,10 +8,13 @@ import CostAnalysis from './CostAnalysis';
 import Image from './images/background.jpg';
 
 // Main logic handler:
-// TODO: Disallow duplicate service names. I didn't have time to add that.
-// Probably the best solution would be to show an error popup when the backend spots duplicates,
-// because the subscription list in the backend can be different from the frontend,
-// f.ex. the frontend list could be filtered and also not showing canceled subscriptions.
+// TODO:
+// - Disallow duplicate service names. I didn't have time to add that.
+//      Probably the best solution would be to show an error popup when the backend spots duplicates,
+//      because the subscription list in the backend can be different from the frontend,
+//      f.ex. the frontend list could be filtered and also not showing canceled subscriptions.
+//
+// - Make the application responsive and look good on smaller screens.
 const App = () => {
     // Local subscription list. Note that it could be filtered compared to the backend list.
     const [subscriptions, setSubscriptions] = useState([]);
