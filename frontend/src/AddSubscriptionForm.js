@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 
+// The form that creates a new subscription:
 const AddSubscriptionForm = ({formData, handleSubmit, handleInputChange}) => {
     return (
         <div className='add-subscription'>

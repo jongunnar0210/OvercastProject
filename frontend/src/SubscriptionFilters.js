@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 
+// Ofter filterings for the local frontend subscriptions:
 const SubscriptionFilters = ({filters, handleFilterChange}) => {
     return (
         <div className='filters'>

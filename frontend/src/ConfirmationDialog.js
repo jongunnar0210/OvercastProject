@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './App.css';
 
+// A confirmation dialog with options YES or NO. Offers handlers for each option:
 const ConfirmationDialog = ({ title, onConfirm, onCancel }) => {
     useEffect(() => {
         const handleEscape = (event) => {
@@ -21,6 +22,7 @@ const ConfirmationDialog = ({ title, onConfirm, onCancel }) => {
         }
     };
 
+    // ReactDOM.createPortal() can make modals easier.
     return ReactDOM.createPortal(
         <div className="dialog-overlay" onClick={handleOverlayClick}>
             <div className="dialog-box">

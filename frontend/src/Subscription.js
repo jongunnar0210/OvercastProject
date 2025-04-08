@@ -3,14 +3,17 @@ import './App.css';
 import ConfirmationDialog from './ConfirmationDialog';
 import { convertDateFormat } from './Utils';
 
+// A single subscription row in the frontend:
 const Subscription = ({sub, index, cancelSubscriptionClick}) => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+    // Cancel subscription:
     const cancelYes = () => {
         cancelSubscriptionClick(sub.service_name);
         setIsDialogOpen(false);
     };
 
+    // Don't cancel subscription:
     const cancelNo = () => {
         setIsDialogOpen(false);
     };
