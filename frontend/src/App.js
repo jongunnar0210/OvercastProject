@@ -7,9 +7,16 @@ import SubscriptionFilters from './SubscriptionFilters';
 import CostAnalysis from './CostAnalysis';
 import Image from './images/background.jpg';
 
+// Main logic handler:
+// TODO: Disallow duplicate service names. I didn't have time to add that.
+// Probably the best solution would be to show an error popup when the backend spots duplicates,
+// because the subscription list in the backend can be different from the frontend,
+// f.ex. the frontend list could be filtered and also not showing canceled subscriptions.
 const App = () => {
+    // Local subscription list. Note that it could be filtered compared to the backend list.
     const [subscriptions, setSubscriptions] = useState([]);
 
+    // Data for creating a new subscription:
     const [formData, setFormData] = useState({
         service_name: '',
         cost: 1,
@@ -18,6 +25,20 @@ const App = () => {
         category: 'Streaming'
     });
 
+    const INITIAL_FILTER_STATUS = {payment_status: '', category: ''};
+
+    // Filters for the subscription list:
+    const [filters, setFilters] = useState(INITIAL_FILTER_STATUS);
+
+    // Aggregated cost analysis:
+    const [costAnalysis, setCostAnalysis] = useState({
+        total_cost: 0,
+        streaming_cost: 0,
+        utilities_cost: 0,
+        fitness_cost: 0
+    });
+
+    // Reset the create subscription form data when the subscription list changes:
     useEffect(() => {
         let tmpDate = new Date();
         tmpDate.setMonth(tmpDate.getMonth() + 1);   // One month ahead is a good starting point.
@@ -31,18 +52,7 @@ const App = () => {
         });
     }, [subscriptions]);
 
-    const INITIAL_FILTER_STATUS = {payment_status: '', category: ''};
-
-    const [filters, setFilters] = useState(INITIAL_FILTER_STATUS);
-
-    const [costAnalysis, setCostAnalysis] = useState({
-        total_cost: 0,
-        streaming_cost: 0,
-        utilities_cost: 0,
-        fitness_cost: 0
-    });
-
-    // Fetch and display the subscription list:
+    // Fetch and display the subscription list. Do this at loading time and when filters change:
     useEffect(() => {
         const fetchAllSubscriptions = async () => {
 			try {
@@ -89,17 +99,19 @@ const App = () => {
 		fetchCostAnalysis();
     }, [subscriptions]);
 
-    // In the future don't allow illegal values or renewal dates in the past f.ex.:
+    // In the future don't allow duplicate service names or renewal dates in the past f.ex.:
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
+    // Change filters:
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
         setFilters({ ...filters, [name]: value });
     };
 
+    // Cancel a subscription:
     const cancelSubscriptionClick = async (service_name) => {
         try {
             const response = await fetch(BACKEND_HOST + `/subscriptions/${service_name}/cancel`, {
@@ -128,7 +140,7 @@ const App = () => {
         }
     }
 
-    // Adds a new subscription to the database:
+    // Add a new subscription to the database:
     const handleSubmit = async (e) => {
         e.preventDefault();
     
