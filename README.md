@@ -13,6 +13,7 @@
      Here I'm mostly using css in App.css.
 - Improve the UI look for the Subscription component that represents a single subscription.
      Create a separate component for each subscription field and make them line up to each other visually.
+- See if I can cleanup frontend/node_modules.
 
 ---
 

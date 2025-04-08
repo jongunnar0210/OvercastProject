@@ -68,10 +68,6 @@ def get_subscriptions_pending_reminders():
     return jsonify([{
         "id": sub.id,
         "service_name": sub.service_name,
-        "cost": sub.cost,
-        "renewal_date": sub.renewal_date.isoformat(),
-        "payment_status": sub.payment_status,
-        "category": sub.category,
     } for sub in subscriptions])
 
 # Get a cost analysis:

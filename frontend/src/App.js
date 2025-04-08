@@ -8,20 +8,6 @@ import CostAnalysis from './CostAnalysis';
 import Image from './images/background.jpg';
 
 // Main logic handler:
-// TODO:
-// - Have someone create a Figma design and follow it.
-// - Use Typescript.
-// - Disallow duplicate service names. I didn't have time to add that.
-//      Probably the best solution would be to show an error popup when the backend spots duplicates,
-//      because the subscription list in the backend can be different from the frontend,
-//      f.ex. the frontend list could be filtered and also not showing canceled subscriptions.
-// - Make the application responsive and look good on smaller screens.
-// - Improve error handling with popups and logging.
-// - Use rem instead of px in the css.
-// - Make a decision on whether to continue with css, scss, bootstrap, tailwind or a combination.
-//      Here I'm mostly using css in App.css.
-// - Improve the UI look for the Subscription component that represents a single subscription.
-//      Create a separate component for each subscription field and make them line up to each other visually.
 const App = () => {
     // Local subscription list. Note that it could be filtered compared to the backend list.
     const [subscriptions, setSubscriptions] = useState([]);
