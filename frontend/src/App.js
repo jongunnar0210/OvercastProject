@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { BACKEND_HOST } from './constants';
-import SubscriptionList from './SubscriptionList';
-import AddSubscriptionForm from './AddSubscriptionForm';
-import SubscriptionFilters from './SubscriptionFilters';
-import CostAnalysis from './CostAnalysis';
+import SubscriptionList from './components/SubscriptionList';
+import AddSubscriptionForm from './components/AddSubscriptionForm';
+import SubscriptionFilters from './components/SubscriptionFilters';
+import CostAnalysis from './components/CostAnalysis';
 import Image from './images/background.jpg';
 
 // Main logic handler:

@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import '../App.css';
 
 // Show insights into the user's subscription spending.
 const CostAnalysis = ({costAnalysis}) => {

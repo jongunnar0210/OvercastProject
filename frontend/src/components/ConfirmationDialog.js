@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import './App.css';
+import '../App.css';
 
 // A confirmation dialog with options YES or NO. Offers handlers for each option:
 const ConfirmationDialog = ({ title, onConfirm, onCancel }) => {

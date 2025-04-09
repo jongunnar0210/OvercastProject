@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import '../App.css';
 
 // Ofter filterings for the local frontend subscriptions:
 const SubscriptionFilters = ({filters, handleFilterChange}) => {

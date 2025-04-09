@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './App.css';
+import '../App.css';
 import ConfirmationDialog from './ConfirmationDialog';
-import { convertDateFormat } from './Utils';
+import { convertDateFormat } from '../Utils';
 
 // A single subscription row in the frontend:
 const Subscription = ({sub, index, cancelSubscriptionClick}) => {
